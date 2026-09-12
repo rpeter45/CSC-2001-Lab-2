@@ -114,12 +114,14 @@ public class DateListTest {
         list.set(1, new SimpleDate(2024, 2, 15));
         assertEquals(new SimpleDate(2024, 2, 15), list.get(1));
 
-        assertEquals(new SimpleDate(2024, 2, 15), list.remove(1));
+        assertEquals(new SimpleDate(2024, 3, 1), list.remove(2));
         assertEquals(2, list.size());
-        assertEquals(new SimpleDate(2024, 3, 1), list.get(1));
+
+        assertEquals(new SimpleDate(2024, 2, 15), list.remove(1));
+        assertEquals(1, list.size());
 
         assertEquals(new SimpleDate(2024, 1, 1), list.remove(0));
-        assertEquals(1, list.size());
+        assertEquals(0, list.size());
 
         assertThrows(IllegalArgumentException.class, () -> list.add(new SimpleDate(2024, 4, 1), 5));
         assertThrows(IllegalArgumentException.class, () -> list.get(-1));
