@@ -1,5 +1,3 @@
-
-
 public class DateList {
     // Implementation of a Linked List, mainly practice and so that I can reuse this code for the project, didn't use most of it
     // head, size variables
@@ -9,17 +7,17 @@ public class DateList {
     // constructor
     public static class Node {
 
-        Date data;
+        SimpleDate data;
         Node next;
 
-        Node(Date d) {
+        Node(SimpleDate d) {
             data = d;
             next = null;
         }
     }
 
     // add method, adds a node with set data to a specific point in the dateList
-    public void add (Date data, int pos) {
+    public void add(SimpleDate data, int pos) {
         Node newNode = new Node(data);
 
         if (pos == 0) {
@@ -43,27 +41,28 @@ public class DateList {
         size++;
     }
 
-    // getter method, returns the Date at the position specified
-    public Date get(int pos) {
+    // getter method, returns the SimpleDate at the position specified
+    public SimpleDate get(int pos) {
         if (pos < 0 || pos >= size) {
             throw new IllegalArgumentException("Position is out of bounds");
         }
 
         Node current = head;
 
-        for (int i = 0; i < pos ; i++) {
+        for (int i = 0; i < pos; i++) {
             current = current.next;
         }
 
         return current.data;
     }
+
     // remove method, removes the node at a specific position
-    public Date remove(int pos) {
+    public SimpleDate remove(int pos) {
         if (pos < 0 || pos >= size) {
             throw new IllegalArgumentException("Position is out of bounds");
         }
 
-        Date removed;
+        SimpleDate removed;
         if (pos == 0) {
             removed = head.data;
             head = head.next;
@@ -79,8 +78,9 @@ public class DateList {
         size--;
         return removed;
     }
+
     // set method, changes the data of the node at a specific position
-    public void set(int pos, Date data) {
+    public void set(int pos, SimpleDate data) {
         if (pos < 0 || pos >= size) {
             throw new IllegalArgumentException("Position is out of bounds");
         }
@@ -108,14 +108,14 @@ public class DateList {
     }
 
     // Returns the earliest date in a DateList by iterating through and comparing to the earliest found, or throws if empty
-    public static Date minDate(DateList list) {
+    public static SimpleDate minDate(DateList list) {
         if (list.isEmpty()) {
             throw new IllegalArgumentException("Input cannot be empty");
         }
-        Date min = list.head.data;
+        SimpleDate min = list.head.data;
         Node current = list.head.next;
         while (current != null) {
-            if (Date.comesBefore(current.data, min)) {
+            if (SimpleDate.comesBefore(current.data, min)) {
                 min = current.data;
             }
             current = current.next;
@@ -124,14 +124,14 @@ public class DateList {
     }
 
     // Returns the lastest date in a DateList by iterating through and comparing to the latest found, or throws if empty
-    public static Date maxDate(DateList list) {
+    public static SimpleDate maxDate(DateList list) {
         if (list.isEmpty()) {
             throw new IllegalArgumentException("Input cannot be empty");
         }
-        Date max = list.head.data;
+        SimpleDate max = list.head.data;
         Node current = list.head.next;
         while (current != null) {
-            if (Date.comesBefore(max, current.data)) {
+            if (SimpleDate.comesBefore(max, current.data)) {
                 max = current.data;
             }
             current = current.next;
@@ -148,7 +148,7 @@ public class DateList {
     }
 
     /*
-    Creates a new DateList to return as an output, then iterates through the input list applying Date.tomorrow to
+    Creates a new DateList to return as an output, then iterates through the input list applying SimpleDate.tomorrow to
     each node, then adding it to the result list
      */
     public static DateList allTomorrows(DateList list) {
@@ -157,7 +157,7 @@ public class DateList {
         Node current = list.head;
         Node tail = null;
         while (current != null) {
-            Node newNode = new Node(Date.tomorrow(current.data));
+            Node newNode = new Node(SimpleDate.tomorrow(current.data));
             if (tail == null) {
                 result.head = newNode;
             } else {
@@ -170,8 +170,8 @@ public class DateList {
         return result;
     }
 
-    // Adds a Date to the end of an input DateList
-    public static DateList addToEnd(DateList list, Date d1) {
+    // Adds a SimpleDate to the end of an input DateList
+    public static DateList addToEnd(DateList list, SimpleDate d1) {
         Node newNode = new Node(d1);
 
         if (list.head == null) {
@@ -186,7 +186,6 @@ public class DateList {
 
         list.size++;
         return list;
-
     }
 
     // Append method adds one DateList to the end of another
@@ -222,6 +221,4 @@ public class DateList {
         result.size = l1.size + l2.size;
         return result;
     }
-
-
 }

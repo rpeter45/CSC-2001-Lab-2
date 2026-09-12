@@ -1,39 +1,37 @@
-
-
-public record DateInterval(Date start, Date end) {
+public record DateInterval(SimpleDate start, SimpleDate end) {
     // Constructor to throw an error
     public DateInterval {
-        if (!Date.comesBefore(start, end)) {
+        if (!SimpleDate.comesBefore(start, end)) {
             throw new IllegalArgumentException("End date is before start date");
         }
     }
 
     // Returns the difference in dayOfYear between the start and end date
-    public static int dateIntervalDays (DateInterval i) {
-        return (i.end.year() - i.start.year()) * 365 + Date.dayOfYear(i.end()) - Date.dayOfYear(i.start());
+    public static int dateIntervalDays(DateInterval i) {
+        return (i.end.year() - i.start.year()) * 365 + SimpleDate.dayOfYear(i.end()) - SimpleDate.dayOfYear(i.start());
     }
 
     // Returns true if the start of the second interval occurs before the end of the first, or vice versa
     public static boolean dateOverlap(DateInterval i1, DateInterval i2) {
-        return Date.comesBefore(i1.start(), i2.end()) && Date.comesBefore(i2.start(), i1.end());
+        return SimpleDate.comesBefore(i1.start(), i2.end()) && SimpleDate.comesBefore(i2.start(), i1.end());
     }
 
     // Returns a DateInterval including all the dates included in both input DateIntervals, or null if there is no overlap
     public static DateInterval dateIntervalIntersect(DateInterval i1, DateInterval i2) {
-        Date start;
-        Date end;
-        if (Date.comesBefore(i1.start(), i2.start())) {
+        SimpleDate start;
+        SimpleDate end;
+        if (SimpleDate.comesBefore(i1.start(), i2.start())) {
             start = i2.start();
         } else {
             start = i1.start();
         }
-        if (Date.comesBefore(i1.end(), i2.end())) {
+        if (SimpleDate.comesBefore(i1.end(), i2.end())) {
             end = i1.end();
         } else {
             end = i2.end();
         }
 
-        if (Date.comesBefore(start, end)) {
+        if (SimpleDate.comesBefore(start, end)) {
             return new DateInterval(start, end);
         }
 

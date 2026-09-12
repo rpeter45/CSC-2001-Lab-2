@@ -1,6 +1,6 @@
-record Date(int year, int month, int day) {
+public record SimpleDate(int year, int month, int day) {
     // Constructor
-    public Date {
+    public SimpleDate {
         if (month < 1 || month > 12) {
             throw new IllegalArgumentException("Invalid month: " + month);
         }
@@ -22,18 +22,18 @@ record Date(int year, int month, int day) {
     }
 
     // Returns the date immediately following the input, rolls over months/years
-    public static Date tomorrow (Date date) {
+    public static SimpleDate tomorrow(SimpleDate date) {
         if (date.day() < daysInMonth(date.month())) {
-            return new Date(date.year(), date.month(), date.day() + 1);
+            return new SimpleDate(date.year(), date.month(), date.day() + 1);
         } else if (date.month() < 12) {
-            return new Date(date.year(), date.month() + 1, 1);
+            return new SimpleDate(date.year(), date.month() + 1, 1);
         } else {
-            return new Date(date.year() + 1, 1 ,1);
+            return new SimpleDate(date.year() + 1, 1, 1);
         }
     }
 
     // Counts the number of 24 hour periods since noon on the beginning of the year (effectively just the day of the year - 1)
-    public static int dayOfYear(Date date) {
+    public static int dayOfYear(SimpleDate date) {
         int result = 0;
         for (int i = 1; i < date.month(); i++) {
             result += daysInMonth(i);
@@ -42,7 +42,7 @@ record Date(int year, int month, int day) {
     }
 
     // Returns true if the first date occurred before or on the second date
-    public static boolean comesBefore(Date d1, Date d2) {
+    public static boolean comesBefore(SimpleDate d1, SimpleDate d2) {
         if (d1.year() != d2.year()) {
             return d1.year() < d2.year();
         } else if (d1.month() != d2.month()) {
