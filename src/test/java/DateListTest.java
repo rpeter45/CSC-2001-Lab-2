@@ -106,13 +106,18 @@ public class DateListTest {
         list.add(new SimpleDate(2024, 1, 1), 0);
         list.add(new SimpleDate(2024, 3, 1), 1);
         list.add(new SimpleDate(2024, 2, 1), 1);
+        list.add(new SimpleDate(2024, 4, 1), 2);
 
         assertEquals(new SimpleDate(2024, 1, 1), list.get(0));
         assertEquals(new SimpleDate(2024, 2, 1), list.get(1));
-        assertEquals(new SimpleDate(2024, 3, 1), list.get(2));
+        assertEquals(new SimpleDate(2024, 4, 1), list.get(2));
+        assertEquals(new SimpleDate(2024, 3, 1), list.get(3));
 
         list.set(1, new SimpleDate(2024, 2, 15));
         assertEquals(new SimpleDate(2024, 2, 15), list.get(1));
+
+        assertEquals(new SimpleDate(2024, 4, 1), list.remove(2));
+        assertEquals(3, list.size());
 
         assertEquals(new SimpleDate(2024, 3, 1), list.remove(2));
         assertEquals(2, list.size());
